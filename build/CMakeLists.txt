@@ -51,6 +51,10 @@ if (WIN32)
     ws2_32.lib
     ${bd}/lib/${remoxly_lib_name}
     )
+elseif(APPLE)
+    list(APPEND remoxly_libs
+      ${bd}/lib/lib${remoxly_lib_name}
+    )
 endif()
 
 # Create example executable

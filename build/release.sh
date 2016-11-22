@@ -20,14 +20,12 @@ if [ "$(uname)" == "Darwin" ]; then
         compiler="clang"
     fi
     os="mac"
-    debugger="lldb"
 elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     if [ "${cmake_generator}" = "" ] ; then
         cmake_generator="Unix Makefiles"
         compiler="gcc"
     fi
     os="linux"
-    debugger="gdb"
 else
     if [ "${cmake_generator}" = "" ] ; then
         cmake_generator="Visual Studio 14 2015 Win64"
@@ -45,6 +43,11 @@ do
         cmake_build_type="Debug"
         cmake_config="Debug"
         debug_flag="_debug"
+        if [ "${os}" = "mac" ] ; then
+            debugger="lldb"
+        elif [ "${os}" = "linux" ] ; then
+            debugger="gdb"
+        fi
     elif [ "${var}" = "xcode" ] ; then
         build_dir="build_xcode"
         cmake_generator="Xcode"
